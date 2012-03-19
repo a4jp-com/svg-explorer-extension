@@ -6,6 +6,7 @@
 #include <QtGui/QPainter>
 #include <QtCore/QFile>
 #include <QString>
+#include <QDateTime>
 #include "assert.h"
 
 using namespace Gdiplus;
@@ -114,6 +115,9 @@ STDMETHODIMP CThumbnailProvider::GetThumbnail(UINT cx,
     QColor color_font = QColor(255, 0, 0);
 
     painter->begin(device);
+    painter->setRenderHints(QPainter::Antialiasing |
+                            QPainter::SmoothPixmapTransform |
+                            QPainter::TextAntialiasing);
     assert(device->paintingActive() && painter->isActive());
     if(loaded){
         renderer.render(painter);
@@ -131,6 +135,7 @@ STDMETHODIMP CThumbnailProvider::GetThumbnail(UINT cx,
 
     assert(!device->isNull());
 
+    device->save(QString("C:\\dev\\%1.png").arg(QDateTime::currentMSecsSinceEpoch()), "PNG");
     *phbmp = QPixmap::fromImage(*device).toWinHBITMAP(QPixmap::Alpha);
     assert(*phbmp != NULL);
 
