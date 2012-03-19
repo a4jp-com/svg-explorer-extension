@@ -8,6 +8,7 @@ private:
     LONG m_cRef;
     IUnknown* m_pSite;
     QSvgRenderer renderer;
+    bool loaded;
 
     ~CThumbnailProvider();
 

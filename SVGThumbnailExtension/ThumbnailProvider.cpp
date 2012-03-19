@@ -74,11 +74,8 @@ STDMETHODIMP CThumbnailProvider::Initialize(IStream *pstm,
 
     QByteArray bytes = QByteArray(data, stat.cbSize.QuadPart);
 
-    assert(bytes.length() > 0);//
-    assert(renderer.load(bytes));
-    assert(renderer.defaultSize().width() != -1);
-    assert(renderer.defaultSize().height() != -1);
-    assert(renderer.isValid());
+    loaded = renderer.load(bytes);
+
     return S_OK;
 }
 
@@ -112,11 +109,24 @@ STDMETHODIMP CThumbnailProvider::GetThumbnail(UINT cx,
 
     QImage * device = new QImage(width, height, QImage::Format_ARGB32);
     device->fill(Qt::transparent);
-    //QPixmap * pixmap = new QPixmap(width, height);
     QPainter * painter = new QPainter();
+    QFont font;
+    QColor color_font = QColor(255, 0, 0);
 
-    assert(painter->begin(device));
-    renderer.render(painter);
+    painter->begin(device);
+    assert(device->paintingActive() && painter->isActive());
+    if(loaded){
+        renderer.render(painter);
+    } else {
+        int font_size = cx / 10;
+
+        font.setStyleHint(QFont::Monospace);
+        font.setPixelSize(font_size);
+
+        painter->setPen(color_font);
+        painter->setFont(font);
+        painter->drawText(font_size, (cx - font_size) / 2, "Invalid SVG file.");
+    }
     painter->end();
 
     assert(!device->isNull());
