@@ -134,8 +134,9 @@ STDMETHODIMP CThumbnailProvider::GetThumbnail(UINT cx,
     painter->end();
 
     assert(!device->isNull());
-
+#ifndef(NDEBUG)
     device->save(QString("C:\\dev\\%1.png").arg(QDateTime::currentMSecsSinceEpoch()), "PNG");
+#endif
     *phbmp = QPixmap::fromImage(*device).toWinHBITMAP(QPixmap::Alpha);
     assert(*phbmp != NULL);
 
