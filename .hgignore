@@ -1,0 +1,5 @@
+syntax: glob
+installer/
+SVGThumbnailExtension-build-x86_Release/
+SVGThumbnailExtension-build-x64_Release/
+SVGThumbnailExtension-build-desktop-Qt_4_8_0__4_8_0__Debug/
