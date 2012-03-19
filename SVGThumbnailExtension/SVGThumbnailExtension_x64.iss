@@ -5,8 +5,8 @@
 AppId={{4CA20D9A-98AC-4DD6-9C16-7449F29AC08A}
 AppMutex=dotz_softwares__svg_explorer_extension
 AppName="SVG Explorer Extension"
-AppVersion="0.1"
-AppVerName="SVG Explorer Extension 0.1"
+AppVersion="0.1.1"
+AppVerName="SVG Explorer Extension 0.1.1"
 AppPublisher="Dotz Softwares"
 AppPublisherURL=http://www.dotzdev.com/
 AppSupportURL=http://www.dotzdev.com/
